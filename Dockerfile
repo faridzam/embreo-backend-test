@@ -9,7 +9,7 @@ RUN npm install -g npm@latest --force
 RUN npm install
 
 COPY . .
-COPY ./.env.prod ./.env
+COPY .env.prod .env
 
 RUN npm run build
 RUN npm run migrate
