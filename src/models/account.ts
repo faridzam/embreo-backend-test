@@ -1,6 +1,6 @@
 export interface Account {
   id: number;
-  userId: number;
+  user_id: number;
   username: string;
   password: string;
 }

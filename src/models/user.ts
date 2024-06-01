@@ -1,5 +1,5 @@
 export interface User {
   id: number;
-  roleId: number;
-  companyId: number;
+  role_id: number;
+  company_id: number;
 }
