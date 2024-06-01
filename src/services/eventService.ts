@@ -243,7 +243,7 @@ export const approveEventService = async (props: updateStatusEventRequest): Prom
       ['approved', props.remarks, formatDateToString(new Date), props.event_id, props.auth.user.id]
     )
 
-    // result.name = eventVendorResult.rows[0].name
+    result.name = eventVendorResult.rows[0].name
     result.status = eventVendorResult.rows[0].status
     result.remarks = eventVendorResult.rows[0].remarks
     result.updated_at = eventVendorResult.rows[0].updated_at
@@ -280,7 +280,7 @@ export const rejectEventService = async (props: updateStatusEventRequest): Promi
       ['rejected', props.remarks, formatDateToString(new Date), props.event_id, props.auth.user.id]
     )
 
-    // result.name = eventVendorResult.rows[0].name
+    result.name = eventVendorResult.rows[0].name
     result.status = eventVendorResult.rows[0].status
     result.remarks = eventVendorResult.rows[0].remarks
     result.updated_at = eventVendorResult.rows[0].updated_at

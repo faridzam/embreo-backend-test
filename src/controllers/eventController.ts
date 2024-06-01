@@ -58,8 +58,8 @@ export const approveEventController = async (req: Request, res: Response<ApiResp
   try {
     const eventData = await approveEventService(req.body);
 
-    res.status(201).json({
-      code: 201,
+    res.status(200).json({
+      code: 200,
       status: 'success',
       message: 'Approve event success!',
       data: eventData
@@ -79,8 +79,8 @@ export const rejectEventController = async (req: Request, res: Response<ApiRespo
   try {
     const eventData = await rejectEventService(req.body);
 
-    res.status(201).json({
-      code: 201,
+    res.status(200).json({
+      code: 200,
       status: 'success',
       message: 'Reject event success!',
       data: eventData
