@@ -9,12 +9,11 @@ RUN npm install -g npm@latest --force
 RUN npm install
 
 COPY . .
-COPY .env.prod .env
 
-RUN npm run build
-RUN npm run migrate
-RUN npm run seed
+RUN npm run build:prod
+RUN npm run migrate:prod
+RUN npm run seed:prod
 
 EXPOSE 8001
 
-CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "start:prod" ]
