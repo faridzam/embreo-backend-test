@@ -240,7 +240,7 @@ export const approveEventService = async (props: updateStatusEventRequest): Prom
             LEFT JOIN users u ON updated_event_vendor.user_id = u.id
             LEFT JOIN companies c ON u.company_id = c.id;
       `,
-      ['approved', '', formatDateToString(new Date), props.event_id, props.auth.user.id]
+      ['approved', props.remarks, formatDateToString(new Date), props.event_id, props.auth.user.id]
     )
 
     result.name = eventVendorResult.rows[0].name
