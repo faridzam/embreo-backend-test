@@ -12,7 +12,8 @@
     "migrate": "NODE_ENV=development ts-node src/database/migrations/index.ts",
     "migrate:prod": "NODE_ENV=production ts-node src/database/migrations/index.ts",
     "seed": "NODE_ENV=development ts-node src/database/seeders/index.ts",
-    "seed:prod": "NODE_ENV=production ts-node src/database/seeders/index.ts"
+    "seed:prod": "NODE_ENV=production ts-node src/database/seeders/index.ts",
+    "deploy": "npm run migrate:prod && npm seed:prod && npm start:prod"
   },
   "keywords": [],
   "author": "",
