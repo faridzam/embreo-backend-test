@@ -1,8 +1,8 @@
 import pool from "../../config/database";
 import AccountSeeder from "./AccountSeeder";
+import CompanySeeder from "./CompanySeeder";
+import RoleSeeder from "./RoleSeeder";
 import UserSeeder from "./UserSeeder";
-import CompanySeeder from "./companySeeder";
-import RoleSeeder from "./roleSeeder";
 
 
 const RunSeeder = async () => {
