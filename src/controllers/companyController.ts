@@ -9,7 +9,7 @@ export const getAllVendorController = async (req: Request, res: Response) => {
         code: 200,
         status: 'success',
         message: 'Get vendors success!',
-        data: {vendors}
+        data: vendors
       });
     } else {
       res.status(404).json({

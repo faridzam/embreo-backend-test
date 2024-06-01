@@ -1,6 +1,7 @@
 import pool from "../config/database";
-import { AuthenticatedUser } from "../models/apiRequest";
-import { CreateEventRequest, EventResponse } from "../models/event";
+import { AuthenticatedUser, CreateEventRequest, updateStatusEventRequest } from "../models/apiRequest";
+import { EventResponse, updateStatusEventResponse } from "../models/apiResponse";
+import { formatDateToString } from "../utils/helper";
 
 export const getEventService = async (props: AuthenticatedUser): Promise<EventResponse[]> => {
 
@@ -24,9 +25,7 @@ export const getEventService = async (props: AuthenticatedUser): Promise<EventRe
         user_id: event.user_id,
         name: event.name,
         location: event.location,
-        status: event.status,
         created_at: event.created_at,
-        updated_at: event.updated_at,
       }
 
       // set company
@@ -36,18 +35,17 @@ export const getEventService = async (props: AuthenticatedUser): Promise<EventRe
       )
       eventResponse.company = companyResult.rows[0]
 
-      // set vendors
-      const eventVendorResult = await pool.query(
-        'SELECT user_id FROM event_vendors WHERE event_id = $1',
-        [event.id]
-      )
-      const userResult = await pool.query(
-        'SELECT company_id FROM users WHERE id = ANY ($1)',
-        [eventVendorResult.rows.map((value) => value.user_id)]
-      )
       const vendorResult = await pool.query(
-        'SELECT * FROM companies WHERE id = ANY ($1)', 
-        [userResult.rows.map((value) => value.company_id)]
+        `
+        SELECT 
+        t3.name, t1.status, t1.status, t1.remarks, t1.updated_at
+        FROM event_vendors t1
+        INNER JOIN users t2 ON t1.user_id = t2.id
+        INNER JOIN companies t3 ON t2.company_id = t3.id
+        WHERE 
+          t1.event_id = $1;
+        `, 
+        [event.id]
       )
       eventResponse.vendors = vendorResult.rows
 
@@ -90,9 +88,7 @@ export const getEventService = async (props: AuthenticatedUser): Promise<EventRe
         user_id: event.user_id,
         name: event.name,
         location: event.location,
-        status: event.status,
         created_at: event.created_at,
-        updated_at: event.updated_at,
       }
 
       // set company
@@ -155,9 +151,7 @@ export const createEventService = async (props: CreateEventRequest): Promise<Eve
     },
     name: "",
     location: "",
-    status: "",
     created_at: "",
-    updated_at: "",
   }
   
   try {
@@ -165,27 +159,38 @@ export const createEventService = async (props: CreateEventRequest): Promise<Eve
 
     // insert events
     const queryInsertEventText = `
-      INSERT INTO events(user_id, name, location, status, remarks) 
+      INSERT INTO events(user_id, name, location) 
       VALUES
-        ($1, $2, $3, $4, $5)
+        ($1, $2, $3)
       RETURNING *;
     `
-    const resultEvent = await client.query(queryInsertEventText, [props.auth.user.id, props.name, props.location, 'pending', ''])
+    const resultEvent = await client.query(queryInsertEventText, [props.auth.user.id, props.name, props.location])
 
     // insert event_vendor
     props.vendors.map(async (vendor) => {
+      // const queryInsertEventVendorText = `
+      //   INSERT INTO event_vendors(event_id, user_id, status, remarks) 
+      //   VALUES
+      //     ($1, $2, $3, '')
+      //   RETURNING *;
+      // `
       const queryInsertEventVendorText = `
-        INSERT INTO event_vendors(event_id, user_id) 
+      WITH inserted_event_vendor AS (
+        INSERT INTO event_vendors(event_id, user_id, status, remarks, updated_at) 
         VALUES
-          ($1, $2)
-        RETURNING *;
+          ($1, $2, $3, '', NULL)
+        RETURNING *
+      ) SELECT * FROM inserted_event_vendor 
+          LEFT JOIN companies ON inserted_event_vendor.user_id = companies.id;
       `
-      const resultVendor = await client.query('SELECT * FROM companies WHERE id = $1;', [vendor])
+      // const resultVendor = await client.query('SELECT * FROM companies WHERE id = $1;', [vendor])
+      const resultEventVendor = await client.query(queryInsertEventVendorText, [resultEvent.rows[0].id, vendor, 'pending'])
       result.vendors.push({
-        id: resultVendor.rows[0].id,
-        name: resultVendor.rows[0].name,
+        name: resultEventVendor.rows[0].name,
+        status: resultEventVendor.rows[0].status,
+        remarks: resultEventVendor.rows[0].remarks,
+        updated_at: resultEventVendor.rows[0].updated_at
       })
-      await client.query(queryInsertEventVendorText, [resultEvent.rows[0].id, vendor])
     })
     
     // insert event_dates
@@ -205,10 +210,7 @@ export const createEventService = async (props: CreateEventRequest): Promise<Eve
     result.company = props.auth.company
     result.name = resultEvent.rows[0].name
     result.location = resultEvent.rows[0].location
-    result.status = resultEvent.rows[0].status
-    result.remarks = resultEvent.rows[0].remarks
     result.created_at = resultEvent.rows[0].created_at
-    result.updated_at = resultEvent.rows[0].updated_at
 
     await client.query('COMMIT')
   } catch (error) {
@@ -219,4 +221,45 @@ export const createEventService = async (props: CreateEventRequest): Promise<Eve
   }
 
   return result as EventResponse;
+};
+
+export const approveEventService = async (props: updateStatusEventRequest): Promise<updateStatusEventResponse> => {
+
+  let result : updateStatusEventResponse = {
+    name: "",
+    status: "",
+    remarks: "",
+    updated_at: ""
+  }
+  
+  try {
+
+    // const eventVendorResult = await pool.query(
+    //   'UPDATE event_vendors SET status = $1, remarks = $2 WHERE event_id = $3 AND user_id = $4 RETURNING *',
+    //   [props.status, props.remarks, props.event_id, props.auth.user.id]
+    // )
+    const eventVendorResult = await pool.query(
+      `
+        WITH updated_event_vendor AS (
+          UPDATE event_vendors 
+          SET status = $1, remarks = $2, updated_at = $3
+          WHERE event_id = $4 AND user_id = $5 
+          RETURNING *
+        ) SELECT * FROM updated_event_vendor 
+            LEFT JOIN users u ON updated_event_vendor.user_id = u.id
+            LEFT JOIN companies c ON u.company_id = c.id;
+      `,
+      ['approved', '', formatDateToString(new Date), props.event_id, props.auth.user.id]
+    )
+
+    result.name = eventVendorResult.rows[0].name
+    result.status = eventVendorResult.rows[0].status
+    result.remarks = eventVendorResult.rows[0].remarks
+    result.updated_at = eventVendorResult.rows[0].updated_at
+
+  } catch (error) {
+    throw error
+  }
+
+  return result;
 };

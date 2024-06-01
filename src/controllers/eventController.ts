@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { ApiResponseBody } from '../models/apiResponse';
-import { createEventService, getEventService } from '../services/eventService';
+import { approveEventService, createEventService, getEventService } from '../services/eventService';
 
 export const getEventController = async (req: Request, res: Response<ApiResponseBody>) => {
 
@@ -12,7 +12,7 @@ export const getEventController = async (req: Request, res: Response<ApiResponse
         code: 200,
         status: 'success',
         message: 'Get event success!',
-        data: {events}
+        data: events
       });
     } else {
       res.status(404).json({
@@ -41,7 +41,7 @@ export const createEventController = async (req: Request, res: Response<ApiRespo
       code: 201,
       status: 'success',
       message: 'Create event success!',
-      data: {eventData}
+      data: eventData
     });
   } catch (error) {
     res.status(500).json({
@@ -52,3 +52,25 @@ export const createEventController = async (req: Request, res: Response<ApiRespo
     });
   }
 };
+
+export const approveEventController = async (req: Request, res: Response<ApiResponseBody>) => {
+
+  try {
+    const eventData = await approveEventService(req.body);
+
+    res.status(201).json({
+      code: 201,
+      status: 'success',
+      message: 'Approve event success!',
+      data: eventData
+    });
+  } catch (error) {
+    res.status(500).json({
+      code: 500,
+      status: 'failed',
+      message: `Internal server error: ${error}`,
+      data: null
+    });
+  }
+};
+

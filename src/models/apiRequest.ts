@@ -9,3 +9,16 @@ export interface AuthenticatedUser {
   company: Company,
   role: Role,
 }
+
+export interface updateStatusEventRequest {
+  event_id: number,
+  auth: AuthenticatedUser
+}
+
+export interface CreateEventRequest {
+  name: string;
+  location: string;
+  vendors: number[];
+  dates: string[];
+  auth: AuthenticatedUser
+}
