@@ -40,7 +40,7 @@ export const checkAuth = async (req: Request, res: Response<ApiResponseBody>) =>
   const token = extractAuthHeader(req.headers['authorization']);
 
   try {
-    jwt.verify(token, config.secret, (err: any, user: any) => {
+    jwt.verify(token, config.secret, (err: any, auth: any) => {
       if (err) {
         res.status(401).json({
           code: 401,
@@ -53,7 +53,11 @@ export const checkAuth = async (req: Request, res: Response<ApiResponseBody>) =>
           code: 200,
           status: 'success',
           message: 'Authorized!',
-          data: { user }
+          data: {
+            user: auth.user,
+            company: auth.company,
+            role: auth.role,
+          }
         });
       }
     });
