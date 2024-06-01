@@ -12,6 +12,7 @@ export interface AuthenticatedUser {
 
 export interface updateStatusEventRequest {
   event_id: number,
+  remarks?: string,
   auth: AuthenticatedUser
 }
 
