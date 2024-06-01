@@ -3,7 +3,6 @@ import { AuthenticatedUser } from "../models/apiRequest";
 import { CreateEventRequest, EventResponse } from "../models/event";
 
 export const getEventService = async (props: AuthenticatedUser): Promise<EventResponse[]> => {
-  
 
   if (props.role.id === 1) {
 
