@@ -4,11 +4,12 @@ import config from '../config/config';
 import pool from '../config/database';
 import { Account } from '../models/account';
 import { AuthenticatedUser } from '../models/apiRequest';
+import { LoginDataResponse } from '../models/apiResponse';
 import { Company } from '../models/company';
 import { Role } from '../models/role';
 import { User } from '../models/user';
 
-export const loginUser = async (username: string, password: string): Promise<string | null> => {
+export const loginUser = async (username: string, password: string): Promise<LoginDataResponse | null> => {
   const resultAccount = await pool.query('SELECT * FROM accounts WHERE username = $1', [username]);
   const resultUser = await pool.query('SELECT * FROM users WHERE id = $1', [resultAccount.rows[0].user_id]);
   const resultCompany = await pool.query('SELECT * FROM companies WHERE id = $1', [resultUser.rows[0].company_id]);
@@ -35,8 +36,13 @@ export const loginUser = async (username: string, password: string): Promise<str
   }
 
   const token = jwt.sign({ account, user, company, role } as AuthenticatedUser, config.secret, {
-    expiresIn: '1h',
+    expiresIn: '24h',
   });
 
-  return token;
+  return {
+    token,
+    user,
+    company,
+    role
+  };
 };

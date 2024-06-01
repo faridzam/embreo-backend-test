@@ -9,14 +9,14 @@ export const login = async (req: Request, res: Response<ApiResponseBody>) => {
   const { username, password } = req.body;
 
   try {
-    const token = await loginUser(username, password);
+    const result = await loginUser(username, password);
 
-    if (token) {
+    if (result?.token) {
       res.status(200).json({
         code: 200,
         status: 'success',
         message: 'Login success!',
-        data: {token}
+        data: result
       });
     } else {
       res.status(401).json({

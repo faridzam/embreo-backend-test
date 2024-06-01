@@ -1,5 +1,7 @@
 import { Company, VendorResponse } from "./company";
 import { Event } from "./event";
+import { Role } from "./role";
+import { User } from "./user";
 
 export interface ApiResponseBody {
   code?: number;
@@ -19,4 +21,11 @@ export interface updateStatusEventResponse {
   status: string,
   remarks?: string,
   updated_at?: string
+}
+
+export interface LoginDataResponse {
+  token: string,
+  user: User,
+  company: Company,
+  role: Role,
 }
