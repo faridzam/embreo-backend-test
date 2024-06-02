@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [Features](#features)
+- [Screenshots](#screenshots)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -15,6 +16,10 @@ List the key features of app:
 - Create event
 - Approve event
 - Reject event
+
+## Screenshots
+
+![Image 1](/screenshot/Screenshot%202024-06-02%20at%2013.36.47.png)
 
 ## Prerequisites
 
