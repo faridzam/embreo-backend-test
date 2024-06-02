@@ -41,3 +41,4 @@ How to install and set up app on local
 - To start the app in development mode: `npm run dev`
 - To build the app: `npm run build`
 - To run the app: `npm run start`
+- for route and json body sample, you can import it via postman collection in "postman-collection" folder

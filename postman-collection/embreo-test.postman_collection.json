@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "d04833e2-37fb-4465-a000-320fb8129dc9",
+		"name": "embreo-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13675102"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"company6\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://embreo-backend-test.faridzam.com/auth/login",
+							"protocol": "https",
+							"host": [
+								"embreo-backend-test",
+								"faridzam",
+								"com"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "events",
+			"item": [
+				{
+					"name": "get events",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjo2LCJ1c2VyX2lkIjo2LCJ1c2VybmFtZSI6ImNvbXBhbnk2IiwicGFzc3dvcmQiOiIkMmEkMTIkR0ZQZ2RFSGd1TzdORW4vWXpDYjFDLmY3VW1sNHpBNTF4dWlVQS9JQy9iN29LbElqdUN0OWUifSwidXNlciI6eyJpZCI6Niwicm9sZV9pZCI6MiwiY29tcGFueV9pZCI6NiwibmFtZSI6IlZlbmRvciAzIn0sImNvbXBhbnkiOnsiaWQiOjYsIm5hbWUiOiJWZW5kb3IgQ29tcGFueSAzIn0sInJvbGUiOnsiaWQiOjIsIm5hbWUiOiJWZW5kb3IifSwiaWF0IjoxNzE3MjY1OTgxLCJleHAiOjE3MTczNTIzODF9.SeBz7gq7OA6jzphr8tkWh8akg3FzD6wrRBcv-UnGOGw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://embreo-backend-test.faridzam.com/event",
+							"protocol": "https",
+							"host": [
+								"embreo-backend-test",
+								"faridzam",
+								"com"
+							],
+							"path": [
+								"event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjoxLCJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImNvbXBhbnkxIiwicGFzc3dvcmQiOiIkMmEkMTIkR0ZQZ2RFSGd1TzdORW4vWXpDYjFDLmY3VW1sNHpBNTF4dWlVQS9JQy9iN29LbElqdUN0OWUifSwidXNlciI6eyJpZCI6MSwicm9sZV9pZCI6MSwiY29tcGFueV9pZCI6MSwibmFtZSI6Ikh1bWFuIFJlc291cmNlIDEifSwiY29tcGFueSI6eyJpZCI6MSwibmFtZSI6Ikh1bWFuIFJlc291cmNlIENvbXBhbnkgMSJ9LCJyb2xlIjp7ImlkIjoxLCJuYW1lIjoiSHVtYW4gUmVzb3VyY2UifSwiaWF0IjoxNzE3MjIyMDA0LCJleHAiOjE3MTcyMjU2MDR9.HMvvaCYDdRXSf9mY31DcVhdIKA-YJu5mLIdLCLcTfZM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"event A\",\n    \"location\": \"jakarta\",\n    \"vendors\": [4,5,6],\n    \"dates\": [\n        \"2024-03-29\",\n        \"2024-03-30\",\n        \"2024-03-31\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://embreo-backend-test.faridzam.com/event",
+							"protocol": "https",
+							"host": [
+								"embreo-backend-test",
+								"faridzam",
+								"com"
+							],
+							"path": [
+								"event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "approve event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjo2LCJ1c2VyX2lkIjo2LCJ1c2VybmFtZSI6ImNvbXBhbnk2IiwicGFzc3dvcmQiOiIkMmEkMTIkR0ZQZ2RFSGd1TzdORW4vWXpDYjFDLmY3VW1sNHpBNTF4dWlVQS9JQy9iN29LbElqdUN0OWUifSwidXNlciI6eyJpZCI6Niwicm9sZV9pZCI6MiwiY29tcGFueV9pZCI6NiwibmFtZSI6IlZlbmRvciAzIn0sImNvbXBhbnkiOnsiaWQiOjYsIm5hbWUiOiJWZW5kb3IgQ29tcGFueSAzIn0sInJvbGUiOnsiaWQiOjIsIm5hbWUiOiJWZW5kb3IifSwiaWF0IjoxNzE3MjY1OTgxLCJleHAiOjE3MTczNTIzODF9.SeBz7gq7OA6jzphr8tkWh8akg3FzD6wrRBcv-UnGOGw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event_id\": 3,\n    \"remarks\" : \"approved by ... on ...\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://embreo-backend-test.faridzam.com/event/approve",
+							"protocol": "https",
+							"host": [
+								"embreo-backend-test",
+								"faridzam",
+								"com"
+							],
+							"path": [
+								"event",
+								"approve"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reject event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjo2LCJ1c2VyX2lkIjo2LCJ1c2VybmFtZSI6ImNvbXBhbnk2IiwicGFzc3dvcmQiOiIkMmEkMTIkR0ZQZ2RFSGd1TzdORW4vWXpDYjFDLmY3VW1sNHpBNTF4dWlVQS9JQy9iN29LbElqdUN0OWUifSwidXNlciI6eyJpZCI6Niwicm9sZV9pZCI6MiwiY29tcGFueV9pZCI6NiwibmFtZSI6IlZlbmRvciAzIn0sImNvbXBhbnkiOnsiaWQiOjYsIm5hbWUiOiJWZW5kb3IgQ29tcGFueSAzIn0sInJvbGUiOnsiaWQiOjIsIm5hbWUiOiJWZW5kb3IifSwiaWF0IjoxNzE3MjI0NDQ1LCJleHAiOjE3MTcyMjgwNDV9.m0vXUuQrnTUzhtMc8n9vl5uMRUfeESyhopt0j8QRsCM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event_id\": 3,\n    \"remarks\": \"acara kurang menarik\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://embreo-backend-test.faridzam.com/event/reject",
+							"protocol": "https",
+							"host": [
+								"embreo-backend-test",
+								"faridzam",
+								"com"
+							],
+							"path": [
+								"event",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get event detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjo2LCJ1c2VyX2lkIjo2LCJ1c2VybmFtZSI6ImNvbXBhbnk2IiwicGFzc3dvcmQiOiIkMmEkMTIkR0ZQZ2RFSGd1TzdORW4vWXpDYjFDLmY3VW1sNHpBNTF4dWlVQS9JQy9iN29LbElqdUN0OWUifSwidXNlciI6eyJpZCI6Niwicm9sZV9pZCI6MiwiY29tcGFueV9pZCI6NiwibmFtZSI6IlZlbmRvciAzIn0sImNvbXBhbnkiOnsiaWQiOjYsIm5hbWUiOiJWZW5kb3IgQ29tcGFueSAzIn0sInJvbGUiOnsiaWQiOjIsIm5hbWUiOiJWZW5kb3IifSwiaWF0IjoxNzE3MjI0NDQ1LCJleHAiOjE3MTcyMjgwNDV9.m0vXUuQrnTUzhtMc8n9vl5uMRUfeESyhopt0j8QRsCM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://embreo-backend-test.faridzam.com/event/3",
+							"protocol": "https",
+							"host": [
+								"embreo-backend-test",
+								"faridzam",
+								"com"
+							],
+							"path": [
+								"event",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "New Folder",
+			"item": [
+				{
+					"name": "get vendors",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7ImlkIjoxLCJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImNvbXBhbnkxIiwicGFzc3dvcmQiOiIkMmEkMTIkR0ZQZ2RFSGd1TzdORW4vWXpDYjFDLmY3VW1sNHpBNTF4dWlVQS9JQy9iN29LbElqdUN0OWUifSwidXNlciI6eyJpZCI6MSwicm9sZV9pZCI6MSwiY29tcGFueV9pZCI6MSwibmFtZSI6Ikh1bWFuIFJlc291cmNlIDEifSwiY29tcGFueSI6eyJpZCI6MSwibmFtZSI6Ikh1bWFuIFJlc291cmNlIENvbXBhbnkgMSJ9LCJyb2xlIjp7ImlkIjoxLCJuYW1lIjoiSHVtYW4gUmVzb3VyY2UifSwiaWF0IjoxNzE3MjU0ODA2LCJleHAiOjE3MTcyNTg0MDZ9.ajAlSuN2A0DG5aNdVarCLB1TfAL00T2dP8FWa4JvaEg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://embreo-backend-test.faridzam.com/company/vendor",
+							"protocol": "https",
+							"host": [
+								"embreo-backend-test",
+								"faridzam",
+								"com"
+							],
+							"path": [
+								"company",
+								"vendor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
